@@ -1,0 +1,19 @@
+<div class="dialog-mod card border-top border-3 border-{{type}} rounded-0" style="margin-bottom: 0 !important;">
+  <div class="modal-header card-header py-3 px-4">
+    <h5 class="mb-0 text-{{type}}">{{title}}</h5>
+    <button type="button" class="btn-close" (click)="onClose()" aria-label="Close"></button>
+  </div>
+  <div class="card-body p-4">
+    <form class="row g-3">
+      <div class="col-md-12">
+        <p style="text-align: justify;">{{message}}</p>
+      </div>
+      <div class="col-md-12">
+        <div class="d-flex justify-content-end gap-3">
+          <button type="button" class="btn btn-{{type}} px-4 rounded-0" (click)="onConfirm()">Confirmer</button>
+          <button type="button" class="btn btn-secondary px-4 rounded-0" (click)="onClose()">Annuler</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

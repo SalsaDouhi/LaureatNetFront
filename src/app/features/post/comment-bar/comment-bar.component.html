@@ -1,0 +1,8 @@
+<div class="form-control rounded-5 d-flex">
+  <input class="form-control border-0 sh-0" [(ngModel)]="newCommentContent" type="text"
+    placeholder="Ajouter une commentaire!" (keyup.enter)="addComment()">
+  <button [ngClass]="newCommentContent == '' ? 'invisible' : ''" class="btn btn-primary rounded-5"
+    (click)="addComment()">
+    <i class="bi bi-send text-white"></i>
+  </button>
+</div>

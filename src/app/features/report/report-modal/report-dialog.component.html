@@ -1,0 +1,40 @@
+<div class="card border-top border-3 border-primary rounded-0 h-auto"
+  style="margin-bottom: 0 !important; display: flex; flex-direction: column; height: 100%;">
+  <div class="modal-header card-header py-3 px-4">
+    <h5 class="mb-0 text-primary">Signaler</h5>
+    <button type="button" class="btn-close" (click)="onNoClick()" aria-label="Close"></button>
+  </div>
+  <div *ngIf="message === 'notSendYet'" class="card-body p-4"
+    style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div *ngFor="let section of data.reportTypes; let i = index">
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="radio" 
+            name="flexRadioDefault" 
+            id="{{ section.id }}" 
+            (change)="selectedReportTypeId = section.id"
+          >
+          <label class="form-check-label" for="{{ section.id }}">
+            <p class="font-weight-light">{{ section.title }}</p>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="align-self: flex-end;">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-success px-4 rounded-0" (click)="onSubmit()" 
+          [disabled]="!selectedReportTypeId">Ok</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="message === 'sent'" class="card-body p-4"> <!-- Change 'success' to 'sent' -->
+    <div class="d-flex justify-content-center">
+      <p class="text-success">Votre signalement a bien été envoyé.</p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-success px-4 rounded-0" (click)="onNoClick()">Ok</button>
+    </div>
+  </div>
+</div>

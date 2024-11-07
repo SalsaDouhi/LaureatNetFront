@@ -1,0 +1,58 @@
+<form class="row g-3 align-items-center mt-1" [formGroup]="form">
+  <!-- ! fields -->
+  <div class="col-md-5">
+    <div class="input-group">
+      <span class="input-group-text">Titre</span>
+      <input type="text" class="form-control" formControlName="title">
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="input-group">
+      <span class="input-group-text">Début</span>
+      <input type="date" class="form-control" formControlName="startDate">
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="input-group">
+      <span class="input-group-text">Fin</span>
+      <input type="date" class="form-control" formControlName="endDate">
+    </div>
+  </div>
+
+  <!-- * actions -->
+  <div class="col-md-1">
+    <div class="d-flex justify-content-evenly">
+      <button type="button" class="btn btn-primary-outlined p-1 m-1 rounded-0"
+        style="border: none; display: flex; align-items: center; justify-content: center;" *ngIf="showSaveButton()"
+        (click)="onSave()">
+        <i class="material-icons-outlined">save</i>
+      </button>
+      <button type="button" class="btn btn-danger-outlined p-1 m-1 rounded-0"
+        style="border: none; display: flex; align-items: center; justify-content: center;" (click)="onDelete()">
+        <i class="material-icons-outlined">delete</i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ! error msgs -->
+  <div class="col-md-5">
+    <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="error-message">
+      Le titre est requis
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.touched" class="error-message">
+      Date début est requis
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.touched" class="error-message">
+      Date fin doit entre plus que la date début
+    </div>
+  </div>
+  <div class="col-md-1">
+  </div>
+
+</form>

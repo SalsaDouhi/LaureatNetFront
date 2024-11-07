@@ -1,0 +1,38 @@
+<div class="modal d-block" id="exampleScrollableModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Creer Une Nouvelle Offre</h5>
+                <button (click)="cancel()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-post-info-header [fullname]="profileService.getCurrentUserFullName()" [pic]="profileService.getCurrentUserPicture()" ></app-post-info-header>
+                <!-- Post content input -->
+                <app-post-content-input placeHolderValue="Contenu De L'Offre"></app-post-content-input>
+
+
+                                    <!-- Offer Type Dropdown -->
+                <div class="mb-3">
+                    <select class="form-select" [(ngModel)]="offerType" (change)="onOfferTypeChange($event)" required>
+                        <option value="" disabled selected>Selectionner Un Type D'Offre</option>
+                        <option value="job">Offre D'Emploi</option>
+                        <option value="internship">Offre De Stage</option>
+                    </select>
+                </div>
+                
+                <!-- Job Offer Form -->
+                <app-job-offer-form *ngIf="offerType === 'job'" ></app-job-offer-form>
+                
+                <!-- Internship Offer Form -->
+                <app-internship-offer-form *ngIf="offerType === 'internship'" ></app-internship-offer-form>
+                <app-file-upload></app-file-upload>
+
+
+                <div class="mb-3">
+                    <button (click)="createOfferPost()" class="w-100 btn btn-primary">Creer</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

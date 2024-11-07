@@ -1,0 +1,18 @@
+<div class="bg-light mx-3 my-0 rounded-3 p-3 mb-2">
+    <div class="d-flex align-items-start justify-content-between mb-3">
+        <app-post-info-header [pic]="'http://localhost:8080/api/v1/files/'+pic" [fullname]="commentorFullName"></app-post-info-header>
+        <div class="align-items-center">
+            <div class="btn-group">
+                <button *ngIf="commentorId===authService.getCurrentUserId()" type="button" class="btn rounded-circle" data-bs-toggle="dropdown" aria-expanded="false"> <span>...</span>
+                </button>
+                <div class= "dropdown-menu" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 40px);" data-popper-placement="bottom-end">
+                    <a class="dropdown-item" (click)="deleteComment()" href="javascript:;">Supprimer Ce Commentaire</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="notes-item">
+        <p class="mb-2">{{content}}</p>
+        <p class="mb-0 text-end fst-italic text-secondary">{{createdAt | date}}</p>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="modal d-block" id="exampleScrollableModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Creer Une Publication Pour Un Nouveau Article Scientific</h5>
+                <button (click)="cancel()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-post-info-header [fullname]="profileService.getCurrentUserFullName()" [pic]="profileService.getCurrentUserPicture()" ></app-post-info-header>
+                <app-post-content-input placeHolderValue="Add some notes on this post?"></app-post-content-input>
+
+                <!-- Post Type Dropdown -->
+                <div class="mb-3">
+                    <select class="form-select" [(ngModel)]="scientificArticlePostType" required>
+                        <option value="" disabled selected>Selectionner Le Type De Publication</option>
+                        <option value="new">Nouveau Article</option>
+                        <option value="existing">Article Existant</option>
+                    </select>
+                </div>
+            
+                <!-- Conditional Forms Based on Post Type -->
+                <app-scientific-article-post-new *ngIf="scientificArticlePostType === 'new'"></app-scientific-article-post-new>
+                <app-scientific-article-post-existing *ngIf="scientificArticlePostType === 'existing'" [articles]="existingArticles"></app-scientific-article-post-existing>
+
+            
+                <div class="mb-3">
+                    <button (click)="createScientificArticlePost()" class="w-100 btn btn-primary">Creer</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

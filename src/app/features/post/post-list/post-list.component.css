@@ -1,0 +1,18 @@
+.animated-element {
+  transition: opacity 0.3s ease-in-out;
+  width: 100%;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animated-enter {
+  animation: slideInFromLeft 0.3s ease-out forwards;
+}

@@ -1,0 +1,12 @@
+<div class="card-header">
+    <div class="offer-details mt-3">
+        <div class="d-flex gap-2">
+            <span class="material-symbols-outlined">work</span>
+            <h5 class="company-name">Entreprise : {{ companyName }}</h5>
+            <img [src]="getCompanyLogo()" class="rounded-circle border" width="25" height="25">
+        </div>
+        <h3 class="role-title">{{ roleTitle }}</h3>
+        <p class="duration">Duration: {{ duration }}</p>
+        <p class="offer-dates">{{ startDate}} - {{ endDate }}</p>
+    </div>
+</div>

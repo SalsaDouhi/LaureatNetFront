@@ -1,0 +1,68 @@
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+  <div class="breadcrumb-title pe-3">Utilisateurs</div>
+  <div class="ps-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 p-0">
+        <li class="breadcrumb-item"><a href="javascript:;"></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Liste des utilisateurs</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-auto">
+    <div class="position-relative">
+      <input class="form-control px-5" type="search" placeholder="Chercher..." (input)="filterUsers($event)">
+      <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50 fs-5">search</span>
+    </div>
+  </div>
+  <div class="col-auto flex-grow-1 overflow-auto">
+
+  </div>
+  <div class="col-auto">
+    <div class="d-flex align-items-center gap-2 justify-content-lg-end">
+      <button class="btn btn-filter px-4" [routerLink]="['/admin', 'uploadExcel']"><i
+          class="bi bi-box-arrow-right me-2"></i>Importer</button>
+      <button class="btn btn-primary px-4" (click)="createNewUser()"><i class="bi bi-plus-lg me-2"></i>Ajouter
+        un utilisateur</button>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4">
+  <div class="card-body">
+    <div class="table-responsive white-space-nowrap">
+      <table class="table align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nom Complete</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Profil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers">
+            <td>{{ (user.lastName + ' ' + user.firstName) | titlecase }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button class="btn btn-outline-info" [routerLink]="['/profiles', user.id]">
+                <span class="material-symbols-outlined">
+                  account_circle
+                </span>
+              </button>
+              <button class="btn btn-outline-danger m-1" (click)="deleteUser(user.id)">
+                <span class="material-symbols-outlined">
+                  delete
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

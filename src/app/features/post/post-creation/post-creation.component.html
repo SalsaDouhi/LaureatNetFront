@@ -1,0 +1,18 @@
+<div class="modal d-block" id="exampleScrollableModal" tabindex="-1"  role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Creer Une Nouvelle Publication</h5>
+                <button (click)="cancel()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-post-info-header [fullname]="profileService.getCurrentUserFullName()" [pic]="profileService.getCurrentUserPicture()" ></app-post-info-header>
+                <form (ngSubmit)="createPost()">
+					<app-post-content-input></app-post-content-input>
+                    <app-file-upload></app-file-upload>    
+                  	<button type="submit" class="w-100 btn btn-primary">Creer Une Nouvelle Publication</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

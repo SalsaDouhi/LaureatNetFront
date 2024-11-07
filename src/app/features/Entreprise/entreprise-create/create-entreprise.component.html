@@ -1,0 +1,117 @@
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+  <div class="breadcrumb-title pe-3">Entreprises</div>
+  <div class="ps-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 p-0">
+        <li class="breadcrumb-item"><a href="javascript:;"></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Ajouter une entreprise</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="ms-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" [routerLink]="['/entreprise', 'list']">Liste des
+        entreprises</button>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-xl-8">
+    <div class="card">
+      <div class="card-body p-8">
+        <h5 class="mb-4">Ajouter une entreprise</h5>
+        <form class="row g-3" [formGroup]="entrepriseForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="title">Nom de l'entreprise :</label>
+            <input type="text" id="title" name="title" class="form-control" formControlName="title">
+            <div *ngIf="entrepriseForm.get('title')?.invalid && entrepriseForm.get('title')?.touched"
+              class="text-danger">
+              Title is required</div>
+          </div>
+
+          <div class="form-group">
+            <label for="tel">Téléphone :</label>
+            <input type="text" id="tel" name="tel" class="form-control" formControlName="tel">
+            <div *ngIf="entrepriseForm.get('tel')?.invalid && entrepriseForm.get('tel')?.touched" class="text-danger">
+              Le numéro de téléphone est requis
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" class="form-control" formControlName="email">
+            <div *ngIf="entrepriseForm.get('email')?.invalid && entrepriseForm.get('email')?.touched"
+              class="text-danger">
+              Email invalid</div>
+          </div>
+
+          <div class="form-group">
+            <label for="website">Siteweb :</label>
+            <input type="text" id="website" name="website" class="form-control" formControlName="website">
+            <div *ngIf="entrepriseForm.get('website')?.invalid && entrepriseForm.get('website')?.touched"
+              class="text-danger">Siteweb est requis
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="logo" class="form-label">Logo :</label>
+            <input type="file" id="logo" name="logo" class="form-control" (change)="onFileSelected($event)">
+            <div *ngIf="entrepriseForm.get('logo')?.invalid && entrepriseForm.get('logo')?.touched" class="text-danger">
+              Logo de l'entreprise est requis
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="localisationX">Localisation X:</label>
+            <input type="text" id="localisationX" name="localisationX" class="form-control"
+              formControlName="localisationX">
+            <div *ngIf="entrepriseForm.get('localisationX')?.invalid && entrepriseForm.get('localisationX')?.touched"
+              class="text-danger">X coordinate is required</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="localisationY">Localisation Y:</label>
+            <input type="text" id="localisationY" name="localisationY" class="form-control"
+              formControlName="localisationY">
+            <div *ngIf="entrepriseForm.get('localisationY')?.invalid && entrepriseForm.get('localisationY')?.touched"
+              class="text-danger">Y coordinate is required</div>
+          </div>
+
+          <div class="col-md-4 d-flex align-items-end justify-content-center">
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#examplePrimaryModal"
+              (click)="toggleMapVisibility()">
+              Choisir une localisation
+            </button>
+          </div>
+
+          <div class="col-md-12 mt-3">
+            <div class="d-md-flex d-grid align-items-center gap-3">
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="examplePrimaryModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: black;">Sélectionnez l'emplacement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-map-location #mapLocation (locationSelected)="onLocationSelected($event)"></app-map-location>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-dark" (click)="onSave()" data-bs-dismiss="modal">Sélectionner</button>
+      </div>
+    </div>
+  </div>
+</div>

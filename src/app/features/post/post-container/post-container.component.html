@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+	<div *ngIf="post" [classList]="'card rounded-4 '+ width">
+		<div *ngIf="post.postType==='ScientificArticlePost'">
+			<app-scientific-article-banner [title]="post.scientificArticleTitle"
+				[datePublished]="post.scientificArticleDatePublished" [authors]="post.scientificArticleAuthors"
+				[publisherName]="post.scientificArticlePublisherName">
+			</app-scientific-article-banner>
+		</div>
+		<div *ngIf="post.postType==='InternshipOffer'">
+			<app-internship-offer-banner [companyName]="post.entrepriseName" [companyLogoUrl]="post.entrepriseImage"
+				[roleTitle]="post.internshipTitle" [duration]="post.internshipDuration" [startDate]="post.internshipStartDate"
+				[endDate]="post.internshipEndDate"></app-internship-offer-banner>
+		</div>
+		<div *ngIf="post.postType==='JobOffer'">
+			<app-job-offer-banner [companyName]="post.entrepriseName" [companyLogoUrl]="post.entrepriseImage"
+				[jobTitle]="post.jobTitle" [startDate]="post.jobStartDate" [endDate]="post.jobEndDate"></app-job-offer-banner>
+		</div>
+
+		<div class="card-body pb-2">
+			<div class="d-flex align-items-start justify-content-between mb-3">
+
+				<!--    Top Info Card Section   -->
+				<app-post-info-header [userId]="post.userId.toString()" [fullname]="post.userFullName"
+					[username]="post.userUsername" [createdAt]="post.createdAt"
+					[pic]="getProfileImage()"></app-post-info-header>
+
+
+				<!--    Side Buttons Section   -->
+
+				<div class="btn-group align-items-center">
+					<!--<button class="btn rounded-circle">...</button>-->
+<!-- 					<button class="btn btn-outline d-flex gap-2" >
+						<span class="material-symbols-outlined">
+							add_circle
+						</span> Suivre
+					</button> -->
+
+					<app-post-options-button  [posterId]="post.userId" (deletePostEvent)="deletePost()"></app-post-options-button>
+				</div>
+			</div>
+			<div class="d-flex align-items-start mb-3">
+				<p class="card-text" [innerHTML]="post.content | newlines"></p>
+			</div>
+			<!--<img src="{{post.attachementList[0]}}" class="card-img-bottom">-->
+
+			<!--    Media Section   -->
+
+			<div *ngIf="post.postType === 'ScientificArticlePost'">
+				<app-article-reader [pdfUrl]="getArticle()"></app-article-reader>
+			</div>
+			<div *ngIf="post.postType !== 'ScientificArticlePost'">
+				<app-post-attachements [attachments]="post.attachments"></app-post-attachements>
+			</div>
+
+
+			<!--    Likes and Comments Counts   -->
+
+			<div class="flex-grow-1 ms-3 d-flex mt-2 ">
+				<p class="w-50 mb-0">{{ post.likes ? post.likes.length:0}} likes</p>
+				<p class="w-50 text-end mb-0"> {{ post.comments.length }} Commentaires</p>
+			</div>
+			<hr class="m-2">
+
+			<!--    Likes and Comments Bar   -->
+
+			<app-post-like-and-comment-bar [postId]="post.id"
+				(likeToggleEvent)="likeToggle($event)" (ToggleModalEvent)="updateComments()"></app-post-like-and-comment-bar>
+
+
+		</div>
+	</div>
+</div>

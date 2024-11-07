@@ -1,0 +1,24 @@
+.banner {
+  max-height: 300px;
+  width: 100%;
+}
+
+.bio-edit-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bio-textarea {
+  width: 100%;
+  resize: none;
+  margin-bottom: 10px;
+  height: calc(1.5em * 6);
+  padding: 7px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

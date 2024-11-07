@@ -1,0 +1,229 @@
+<!--start sidebar-->
+
+<aside class="sidebar-wrapper" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-header">
+      <div class="logo-icon">
+        <img src="assets/images/logo.png" class="logo-img" alt="">
+      </div>
+      <div class="logo-name flex-grow-1">
+        <h5 class="mb-0">LaureatNet</h5>
+      </div>
+      <div class="sidebar-close">
+        <span class="material-icons-outlined">close</span>
+      </div>
+    </div>
+    <div class="sidebar-nav">
+
+      <!--navigation-->
+      <ul class="metismenu" id="sidenav">
+        <li routerLink="/home" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon"><i class="material-icons-outlined">home</i>
+            </div>
+            <div class="menu-title">Home</div>
+          </a>
+        </li>
+        <li class="menu-label">Vous</li>
+        <li [routerLink]="getMyProfileRoute()" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon"><span class="material-symbols-outlined">
+                person
+              </span>
+            </div>
+            <div class="menu-title">Mon Profile</div>
+          </a>
+        </li>
+        <li [class.mm-active]="isActive(['/connection/requests', '/subscription/list', '/block'])">
+          <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon">
+              <span class="material-symbols-outlined">
+                diversity_3
+              </span>
+            </div>
+            <div class="menu-title">Mes relations</div>
+          </a>
+          <ul class="mm-collapse" [class.mm-show]="isActive(['/connection/requests', '/subscription/list', '/block'])">
+            <li>
+              <a routerLink="/connection/requests" routerLinkActive="mm-active">
+                <i class="material-icons-outlined">arrow_right</i>
+                Invitations
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['/subscription/list', currentUserId]" routerLinkActive="mm-active">
+                <i class="material-icons-outlined">arrow_right</i>
+                Abonnements
+              </a>
+            </li>
+            <li>
+              <a routerLink="/block" routerLinkActive="mm-active">
+                <i class="material-icons-outlined">arrow_right</i>
+                Bloqués
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="menu-label">Découvrez</li>
+        <li routerLink="/post/jobs" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon">
+              <span class="material-symbols-outlined">work</span>
+            </div>
+            <div class="menu-title">Offres de travaille</div>
+          </a>
+        </li>
+        <li routerLink="/post/internships" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon">
+              <span class="material-symbols-outlined">work_history</span>
+            </div>
+            <div class="menu-title">Offres de stage</div>
+          </a>
+        </li>
+        <li routerLink="/entreprise/cards" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon">
+              <span class="material-symbols-outlined">apartment</span>
+            </div>
+            <div class="menu-title">Entreprises</div>
+          </a>
+        </li>
+        <li routerLink="/route1" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon"><span class="material-symbols-outlined">
+                article
+              </span>
+            </div>
+            <div class="menu-title">Articles scientifique</div>
+          </a>
+        </li>
+
+        <!-- ! admin items -->
+        <ng-container *ngIf="isAdmin()">
+          <li class="menu-label">Admin</li>
+          <li routerLink="/dashboard" routerLinkActive="mm-active">
+            <a>
+              <div class="parent-icon">
+                <span class="material-symbols-outlined">dashboard</span>
+              </div>
+              <div class="menu-title">Dashboard</div>
+            </a>
+          </li>
+          <li routerLink="/admin/users" routerLinkActive="mm-active">
+            <a>
+              <div class="parent-icon">
+                <span class="material-symbols-outlined">group</span>
+              </div>
+              <div class="menu-title">Utilisateurs</div>
+            </a>
+          </li>
+          <li routerLink="/entreprise/list" routerLinkActive="mm-active">
+            <a>
+              <div class="parent-icon">
+                <span class="material-symbols-outlined">apartment</span>
+              </div>
+              <div class="menu-title">Entreprises</div>
+            </a>
+          </li>
+          <li routerLink="/technology" routerLinkActive="mm-active">
+            <a>
+              <div class="parent-icon">
+                <span class="material-symbols-outlined">tag</span>
+              </div>
+              <div class="menu-title">Technologies</div>
+            </a>
+          </li>
+          <li routerLink="/report" routerLinkActive="mm-active">
+            <a>
+              <div class="parent-icon">
+                <span class="material-symbols-outlined">flag</span>
+              </div>
+              <div class="menu-title">Signales</div>
+            </a>
+          </li>
+        </ng-container>
+
+      </ul>
+    </div>
+    <!-- <li routerLink="/subscription/list/{{ currentUserId }}" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon"><i class="material-icons-outlined">grade</i>
+            </div>
+            <div class="menu-title">Abonnements</div>
+          </a>
+        </li>
+        <li *ngIf="role === 'user'" routerLink="/block" routerLinkActive="mm-active">
+          <a>
+            <div class="parent-icon"><i class="material-icons-outlined">grade</i>
+            </div>
+            <div class="menu-title">Blocs</div>
+          </a>
+      </ul> -->
+    <!-- end navigation -->
+    <div class="sidebar-bottom gap-4">
+      <div class="dark-mode">
+        <a href="javascript:;" class="footer-icon dark-mode-icon" (click)="toggleTheme()">
+          <i class="material-icons-outlined">dark_mode</i>
+        </a>
+      </div>
+      <!-- <div class="dropdown dropup-center dropup dropdown-laungauge">
+        <a class="dropdown-toggle dropdown-toggle-nocaret footer-icon" href="avascript:;" data-bs-toggle="dropdown"><img
+            src="assets/images/county/02.png" width="22" alt="">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/01.png" width="20" alt=""><span class="ms-2">English</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/02.png" width="20" alt=""><span class="ms-2">Catalan</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/03.png" width="20" alt=""><span class="ms-2">French</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/04.png" width="20" alt=""><span class="ms-2">Belize</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/05.png" width="20" alt=""><span class="ms-2">Colombia</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/06.png" width="20" alt=""><span class="ms-2">Spanish</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/07.png" width="20" alt=""><span class="ms-2">Georgian</span></a>
+          </li>
+          <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                src="assets/images/county/08.png" width="20" alt=""><span class="ms-2">Hindi</span></a>
+          </li>
+        </ul>
+      </div> -->
+      <!-- <div class="dropdown dropup-center dropup dropdown-help">
+        <a class="footer-icon  dropdown-toggle dropdown-toggle-nocaret option" href="javascript:;"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="material-icons-outlined">
+            info
+          </span>
+        </a>
+        <div class="dropdown-menu dropdown-option dropdown-menu-end shadow">
+          <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                class="material-icons-outlined fs-6">inventory_2</i>Archive All</a></div>
+          <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                class="material-icons-outlined fs-6">done_all</i>Mark all as read</a></div>
+          <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                class="material-icons-outlined fs-6">mic_off</i>Disable Notifications</a></div>
+          <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                class="material-icons-outlined fs-6">grade</i>What's new ?</a></div>
+          <div>
+            <hr class="dropdown-divider">
+          </div>
+          <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                class="material-icons-outlined fs-6">leaderboard</i>Reports</a></div>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+</aside>
+<!--end sidebar-->

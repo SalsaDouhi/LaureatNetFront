@@ -1,0 +1,7 @@
+.force-round {
+    width: 2.5rem; /* Adjust this value as needed */
+    height: 2.5rem; /* Adjust this value as needed */
+    border-radius: 50%;
+    overflow: hidden; /* Ensures content inside the button doesn't protrude */
+    padding: 0;
+}

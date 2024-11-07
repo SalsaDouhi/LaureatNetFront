@@ -1,0 +1,80 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h3>Mettre à jour une entreprise</h3>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="entrepriseForm" (ngSubmit)="updateEntreprise()">
+        <img *ngIf="entreprise.logo" [src]="entreprise.logo" alt="Logo" class="rounded-circle raised p-1 bg-white center" style="max-width: 100px;">
+        <div class="form-group">
+          <label for="title">Titre :</label>
+          <input type="text" id="title" name="title" class="form-control" formControlName="title">
+        </div>
+      
+        <div class="form-group">
+          <label for="tel">Téléphone :</label>
+          <input type="text" id="tel" name="tel" class="form-control" formControlName="tel">
+        </div>
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" class="form-control" formControlName="email">
+        </div>
+        <div class="form-group">
+          <label for="website">Site web :</label>
+          <input type="text" id="website" name="website" class="form-control" formControlName="website">
+        </div>
+        
+        <div class="form-group">
+          <label for="logoFile">Logo :</label>
+          <div class="mb-3">
+            <label for="logoFile" class="form-label">selectionnez un logo</label>
+            <input class="form-control" type="file" id="logoFile" name="logoFile" formControlName="logoFile">
+        </div>
+        
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="localisationX">Localisation X:</label>
+              <input type="number" id="localisationX" name="localisationX" class="form-control" formControlName="localisationX">
+            </div>
+            <div class="form-group">
+              <label for="localisationY">Localisation Y:</label>
+              <input type="number" id="localisationY" name="localisationY" class="form-control" formControlName="localisationY">
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#examplePrimaryModal"> 
+            update Location
+            </button>
+          </div>
+        </div><div class="footr" >
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Annuler</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="col">
+  <div class="modal fade" id="examplePrimaryModal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-primary">
+        <div class="modal-header">
+          <h5 class="modal-title text-white">chooooooooooose your location</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+          <app-map-location #mapLocation 
+          [initialLatitude]="x" 
+          [initialLongitude]="y"
+          (locationSelected)="onLocationSelected($event)"> </app-map-location>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-dark"   (click)="OnSve()"  data-bs-dismiss="modal" >Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

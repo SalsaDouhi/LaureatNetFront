@@ -1,0 +1,138 @@
+<div class="card mb-0" style="height: 82vh;">
+  <div class="card-body">
+    <div id="stepper3" class="bs-stepper gap-4 vertical">
+      <!-- ! STEPPER HEADERS -->
+      <div class="bs-stepper-header" role="tablist" style="height: 78vh;">
+        <!-- ? step 1 -->
+        <div class="step" data-target="#test-vl-1" (click)="setStep(1)" [ngClass]="{ 'active': step == 1 }">
+          <div class="step-trigger" role="tab" aria-controls="test-vl-3" aria-selected="true">
+            <div class="bs-stepper-circle"><i class="material-icons-outlined">perm_identity</i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Informations personnelles</h5>
+              <p class="mb-0 steper-sub-title">Actualisez vos infos</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ? step 2 -->
+        <div class="step" data-target="#test-vl-5" (click)="setStep(2)" [ngClass]="{ 'active': step == 2 }">
+          <div class="step-trigger" role="tab" aria-controls="test-vl-5" aria-selected="false" disabled="disabled">
+            <div class="bs-stepper-circle"><i class="material-icons-outlined">account_box</i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Changez votre photo</h5>
+              <p class="mb-0 steper-sub-title">Actualisez photo et bannière</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ? step 3 -->
+        <div class="step" data-target="#test-vl-4" (click)="setStep(3)" [ngClass]="{ 'active': step == 3 }">
+          <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="test-vl-4" aria-selected="false"
+            disabled="disabled">
+            <div class="bs-stepper-circle"><i class="material-icons-outlined">more</i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Sécurité</h5>
+              <p class="mb-0 steper-sub-title">Réinitialisez votre mot de passe</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ? step 4 -->
+        <div class="step" data-target="#test-vl-1" (click)="setStep(4)" [ngClass]="{ 'active': step == 4 }">
+          <div class="step-trigger" role="tab" id="stepper3trigger1" aria-controls="test-vl-1" aria-selected="false"
+            disabled="disabled">
+            <div class="bs-stepper-circle"><i class="material-icons-outlined">auto_stories</i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Notifications</h5>
+              <p class="mb-0 steper-sub-title">Gérez les notifications</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ? step 5 -->
+        <div class="step" data-target="#test-vl-2" (click)="setStep(5)" [ngClass]="{ 'active': step == 5 }">
+          <div class="step-trigger" role="tab" id="stepper3trigger2" aria-controls="test-vl-2" aria-selected="false"
+            disabled="disabled">
+            <div class="bs-stepper-circle"><i class="material-icons-outlined">account_box</i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Réseaux Sociaux</h5>
+              <p class="mb-0 steper-sub-title">Liez vos réseaux sociaux</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ! STEPPER CONTENT -->
+      <div class="bs-stepper-content w-100">
+        <!-- ! personal info -->
+        <div id="test-vl-3" class="bs-stepper-pane content fade dstepper-block" [ngClass]="{ 'active': step == 1 }"
+          *ngIf="step == 1">
+          <h5 class="mb-1">Informations personnelles</h5>
+          <p class="mb-4">Actualisez vos infos</p>
+          <app-settings-info></app-settings-info>
+        </div>
+
+        <!-- ! pfp and banner -->
+        <div id="test-vl-5" class="bs-stepper-pane content fade dstepper-block" [ngClass]="{ 'active': step == 2 }"
+          *ngIf="step == 2">
+          <h5 class="mb-1">Changez votre photo</h5>
+          <p class="mb-4">Actualisez photo et bannière</p>
+          <app-settings-pictures></app-settings-pictures>
+        </div>
+
+        <!-- ! security -->
+        <div id="test-vl-4" class="bs-stepper-pane content fade dstepper-block" [ngClass]="{ 'active': step == 3 }"
+          *ngIf="step == 3">
+          <h5 class="mb-1">Sécurité</h5>
+          <p class="mb-4">Réinitialisez votre mot de passe</p>
+          <app-settings-security></app-settings-security>
+        </div>
+
+        <!-- ! notifications -->
+        <div id="test-vl-1" class="bs-stepper-pane content fade dstepper-block" [ngClass]="{ 'active': step == 4 }"
+          *ngIf="step == 4">
+          <h5 class="mb-1">Notifications</h5>
+          <p class="mb-4">Gérez les notifications</p>
+          <app-settings-notifications></app-settings-notifications>
+        </div>
+
+        <!-- ! social media -->
+        <div id="test-vl-2" class="bs-stepper-pane content fade dstepper-block" [ngClass]="{ 'active': step == 5 }"
+          *ngIf="step == 5">
+          <h5 class="mb-1">Réseaux Sociaux</h5>
+          <p class="mb-4">Liez vos réseaux sociaux</p>
+          <app-settings-socialmedia></app-settings-socialmedia>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div *ngIf="showSuccessModal" class="modal fade show" id="exampleModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" style="display: block;" aria-modal="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">Votre mot de passe a etait modifié !</div>
+      <div class="modal-footer">
+        <button type="button" (click)="closeSucces()" id="okk" class="btn btn-primary">OKK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showErrorModal" class="alert alert-border-danger alert-dismissible fade show">
+  <div class="d-flex align-items-center">
+    <div class="font-35 text-danger"><span class="material-icons-outlined fs-2">check_circle</span>
+    </div>
+    <div class="ms-3">
+      <h6 class="mb-0 text-danger">Notification</h6>
+      <div class="">Ancient mot de passe incorrecte !</div>
+    </div>
+  </div>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="showErrorModal=false"
+    aria-label="Fermer"></button>
+</div> -->

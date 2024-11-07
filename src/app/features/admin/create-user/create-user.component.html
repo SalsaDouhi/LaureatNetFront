@@ -1,0 +1,97 @@
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+  <div class="breadcrumb-title pe-3">Utilisateurs</div>
+  <div class="ps-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 p-0">
+        <li class="breadcrumb-item"><a href="javascript:;"></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Ajouter un utilisateur</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="ms-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" [routerLink]="['/admin', 'users']">Liste des utilisateurs</button>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-xl-6">
+    <div class="card">
+      <div class="card-body p-4">
+        <h5 class="mb-4">Ajouter un nouveau utilisateur</h5>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="row g-3">
+          <div class="col-md-12">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" class="form-control" formControlName="email">
+            <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-danger">Email is
+              L'Email est invalide
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="firstName">Nom :</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" formControlName="firstName">
+            <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched" class="text-danger">
+              Le nom est requis
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="lastName">Prénom :</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" formControlName="lastName">
+            <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" class="text-danger">Last
+              Le prénom est requis
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="currentGrade">Classe :</label>
+            <input type="text" id="currentGrade" name="currentGrade" class="form-control"
+              formControlName="currentGrade">
+            <div *ngIf="userForm.get('currentGrade')?.invalid && userForm.get('currentGrade')?.touched"
+              class="text-danger">
+              La classe est requis
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="major">Filière :</label>
+            <input type="text" id="major" name="major" class="form-control" formControlName="major">
+            <div *ngIf="userForm.get('major')?.invalid && userForm.get('major')?.touched" class="text-danger">
+              la filière est requis
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="birthDate">Date de naissance :</label>
+            <input type="date" id="birthDate" name="birthDate" class="form-control" formControlName="birthDate">
+            <div *ngIf="userForm.get('birthDate')?.invalid && userForm.get('birthDate')?.touched" class="text-danger">
+              Date de naissance invalide
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gender">Genre :</label>
+            <select id="gender" name="gender" class="form-control" formControlName="gender">
+              <option value="true">Male</option>
+              <option value="false">Female</option>
+            </select>
+            <div *ngIf="userForm.get('gender')?.invalid && userForm.get('gender')?.touched" class="text-danger">
+              Veulliez choisir un genre
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="role">Role :</label>
+            <select id="role" name="role" class="form-control" formControlName="roleId">
+              <option *ngFor="let type of accountTypes" [value]="type.id">{{ type.title }}</option>
+            </select>
+            <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" class="text-danger">Role is
+              required</div>
+          </div>
+          <div class="col-md-12">
+            <div class="d-md-flex d-grid align-items-center gap-3">
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+          </div>
+        </form>
+       
+      </div>
+    </div>
+  </div>
+</div> <p-toast></p-toast>

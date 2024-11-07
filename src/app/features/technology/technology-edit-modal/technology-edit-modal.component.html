@@ -1,0 +1,29 @@
+<div class="card border-top border-3 border-primary rounded-0 h-auto"
+  style="margin-bottom: 0 !important; display: flex; flex-direction: column; height: 100%;">
+  <div class="modal-header card-header py-3 px-4">
+    <h5 class="mb-0 text-primary">Modifier une technologie</h5>
+    <button type="button" class="btn-close" (click)="onClose()" aria-label="Close"></button>
+  </div>
+  <div class="card-body p-4"
+    style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+    <div class="mb-3">
+      <!-- inputs goes here -->
+      <form class="row g-3 align-items-center mt-1 "  [formGroup]="form">
+        <!-- ! fields -->
+        <div class="col-md-12">
+          <div class="input-group">
+            <span class="input-group-text">Titre</span>
+            <input type="text" class="form-control" formControlName="title">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-12" style="align-self: flex-end;">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-danger px-4 rounded-0" (click)="onDelete()">Supprimer</button>
+        <button type="button" class="btn btn-success px-4 rounded-0" (click)="onSubmit()">Modifier</button>
+        <button type="button" class="btn btn-primary px-4 rounded-0" (click)="onClose()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "LaureatNetFront": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/laureat-net-front",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bootstrap-extended.css",
+              "src/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css",
+              "src/assets/plugins/metismenu/metisMenu.min.css",
+              "src/assets/plugins/metismenu/mm-vertical.css",
+              "src/assets/plugins/simplebar/css/simplebar.css",
+              "src/assets/sass/main.css",
+              "src/assets/sass/main.scss",
+              "src/assets/sass/semi-dark.css",
+              "src/assets/sass/dark-theme.css",
+              "src/assets/sass/bordered-theme.css",
+              "src/assets/plugins/select2/css/select2.min.css",
+              "src/assets/plugins/bs-stepper/css/bs-stepper.css",
+              "src/assets/plugins/select2/css/select2-bootstrap4.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "src/assets/sass/responsive.css"
+            ],
+            "scripts": [
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js",
+              "src/assets/plugins/metismenu/metisMenu.min.js",
+              "src/assets/plugins/apexchart/apexcharts.min.js",
+              "src/assets/plugins/simplebar/js/simplebar.min.js",
+              "src/assets/plugins/peity/jquery.peity.min.js",
+              "src/assets/plugins/select2/js/select2-custom.js",
+              "src/assets/plugins/select2/js/select2.min.js",
+              "src/assets/js/index.js",
+              "src/assets/js/main.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "LaureatNetFront:build:production"
+            },
+            "development": {
+              "buildTarget": "LaureatNetFront:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "LaureatNetFront:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

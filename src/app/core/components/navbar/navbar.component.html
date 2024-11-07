@@ -1,0 +1,443 @@
+<!--start header-->
+<header class="top-header">
+  <nav class="navbar navbar-expand align-items-center gap-4" (click)="closeSearchPopup()">
+    <div class="btn-toggle" (click)="toggleSidebar()">
+      <a href="javascript:;"><i class="material-icons-outlined">menu</i></a>
+    </div>
+    <div class="search-bar flex-grow-1">
+      <div class="position-relative">
+        <input class="form-control rounded-5 px-5 search-control d-lg-block d-none" type="text"
+          placeholder="Chercher..." (keyup)="onSearchTermChange($event)" (click)="showSearchPopupFunction()">
+        <span
+          class="material-icons-outlined position-absolute d-lg-block d-none ms-3 translate-middle-y start-0 top-50">search</span>
+        <span class="material-icons-outlined position-absolute me-3 translate-middle-y end-0 top-50 search-close"
+          [ngClass]="{'d-block': showSearchPopup}" (click)="toggleSearchPopup()">close</span>
+
+        <div class="search-popup p-3" [ngClass]="{'d-block': showSearchPopup}">
+          <div class="card rounded-4 overflow-hidden">
+            <div class="card-body search-content ps ps--active-y">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <p class="search-title mb-0" *ngIf="recentSearches.length > 0">recherches récentes</p>
+                <a class="text-secondary cursor-pointer" style="font-size: 12px;" *ngIf="recentSearches.length > 0"
+                  (click)="clearRecentSearches()">TOUT EFFACER</a>
+              </div>
+
+              <div class="d-flex align-items-start flex-wrap gap-2 kewords-wrapper" *ngIf="recentSearches.length > 0">
+                <a href="javascript:;" class="kewords" *ngFor="let searchTerm of recentSearches"
+                  (click)="onRecentSearchClick(searchTerm)">
+                  <span>{{ searchTerm }}</span>
+                  <i class="material-icons-outlined fs-6">search</i>
+                </a>
+              </div>
+
+              <hr *ngIf="recentSearches.length > 0">
+
+              <div class="d-flex justify-content-center align-items-center" *ngIf="filteredUsers.length == 0"
+                style="height: 200px;">
+                <p class="search-title  mb-0" style="font-size: 20px;" *ngIf="searchTerm.trim() != ''">Aucun membre
+                  trouvé</p>
+                <p class="search-title  mb-0" style="font-size: 20px;" *ngIf="searchTerm.trim() == ''">Chercher un
+                  utilisateur</p>
+              </div>
+              <div *ngIf="filteredUsers.length > 0">
+                <p class="search-title">Members</p>
+                <div class="search-list d-flex flex-column gap-2">
+                  <div class="search-list-item d-flex align-items-center gap-3" *ngFor="let user of filteredUsers"
+                    (click)="onUserClick(user)">
+                    <div class="member-img">
+                      <img [src]="getProfilePicture(user.userProfile.picture)" width="32" height="32"
+                        class="rounded-circle" alt="">
+                    </div>
+                    <div class="d-flex flex-column">
+                      <div class="d-flex align-items-center">
+                        <h5 class="mb-0 search-list-title">{{ (user.userProfile.firstName + ' ' +
+                          user.userProfile.lastName) | titlecase }}</h5>
+                        <div class="circle ms-2 me-2"></div>
+                        <p class="mb-0 text-secondary" style="font-size: 13px; margin-top: 2px;"
+                          *ngIf="!user.userProfile.graduated || user.userProfile.graduated == ''"> {{ ('étudiant ' |
+                          titlecase ) + ' en ' +
+                          user.userProfile.currentGrade + ' année ' + user.userProfile.major }}
+                        </p>
+
+                        <p class="mb-0 text-secondary" style="font-size: 13px; margin-top: 2px;"
+                          *ngIf="user.userProfile.graduated && user.userProfile.graduated != ''"> {{
+                          user.userProfile.currentPosition }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <ul class="navbar-nav gap-1 nav-right-links align-items-center">
+      <li class="nav-item d-lg-none mobile-search-btn">
+        <a class="nav-link" href="javascript:;"><i class="material-icons-outlined">search</i></a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" data-bs-auto-close="outside"
+            data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">add</i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="" (click)="openModal('normalPost',$event)">Ajouter un post</a></li>
+            <li>
+              <a class="dropdown-item" href="" *ngIf="showOfferPost" (click)="openModal('offerPost',$event)">
+                Ajouter un offre
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="" *ngIf="showScientificArticlePost"
+                (click)="openModal('scientificArticlePost',$event)">Publier une article scientifique</a></li>
+          </ul>
+        </div>
+      </li>
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-auto-close="outside"
+          data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">apps</i></a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-apps shadow-lg p-3">
+          <div class="border rounded-4 overflow-hidden">
+            <div class="row row-cols-3 g-0 border-bottom">
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/01.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Gmail</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/02.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Skype</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/03.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Slack</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row row-cols-3 g-0 border-bottom">
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/04.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">YouTube</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/05.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Google</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/06.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Instagram</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="row row-cols-3 g-0 border-bottom">
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/07.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Spotify</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/08.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Yahoo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/09.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Facebook</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-cols-3 g-0">
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/10.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Figma</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-end">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/11.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Paypal</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="app-wrapper d-flex flex-column gap-2 text-center">
+                  <div class="app-icon">
+                    <img src="assets/images/apps/12.png" width="36" alt="">
+                  </div>
+                  <div class="app-name">
+                    <p class="mb-0">Photo</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li> -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" data-bs-auto-close="outside"
+          data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">notifications</i>
+          <span class="badge-notify">{{getRantomNotifNumber()}}</span>
+        </a>
+        <div class="dropdown-menu dropdown-notify dropdown-menu-end shadow">
+          <div class="px-3 py-1 d-flex align-items-center justify-content-between border-bottom">
+            <h5 class="notiy-title mb-0">Notifications</h5>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret option" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-icons-outlined">
+                  more_vert
+                </span>
+              </button>
+              <div class="dropdown-menu dropdown-option dropdown-menu-end shadow">
+                <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                      class="material-icons-outlined fs-6">inventory_2</i>Archive All</a></div>
+                <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                      class="material-icons-outlined fs-6">done_all</i>Mark all as read</a></div>
+                <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                      class="material-icons-outlined fs-6">mic_off</i>Disable Notifications</a></div>
+                <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                      class="material-icons-outlined fs-6">grade</i>What's new ?</a></div>
+                <div>
+                  <hr class="dropdown-divider">
+                </div>
+                <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                      class="material-icons-outlined fs-6">leaderboard</i>Reports</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="notify-list">
+            <div>
+              <a class="dropdown-item border-bottom py-2" href="javascript:;">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="">
+                    <img src="https://picsum.photos/32/32" class="rounded-circle" width="45" height="45" alt="">
+                  </div>
+                  <div class="">
+                    <h5 class="notify-title">Congratulations Jhon</h5>
+                    <p class="mb-0 notify-desc">Many congtars jhon. You have won the gifts.</p>
+                    <p class="mb-0 notify-time">Today</p>
+                  </div>
+                  <div class="notify-close position-absolute end-0 me-3">
+                    <i class="material-icons-outlined fs-6">close</i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div>
+              <a class="dropdown-item border-bottom py-2" href="javascript:;">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="user-wrapper bg-primary text-primary bg-opacity-10">
+                    <span>RS</span>
+                  </div>
+                  <div class="">
+                    <h5 class="notify-title">New Account Created</h5>
+                    <p class="mb-0 notify-desc">From USA an user has registered.</p>
+                    <p class="mb-0 notify-time">Yesterday</p>
+                  </div>
+                  <div class="notify-close position-absolute end-0 me-3">
+                    <i class="material-icons-outlined fs-6">close</i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div>
+              <a class="dropdown-item border-bottom py-2" href="javascript:;">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="">
+                    <img src="assets/images/apps/13.png" class="rounded-circle" width="45" height="45" alt="">
+                  </div>
+                  <div class="">
+                    <h5 class="notify-title">Payment Recived</h5>
+                    <p class="mb-0 notify-desc">New payment recived successfully</p>
+                    <p class="mb-0 notify-time">1d ago</p>
+                  </div>
+                  <div class="notify-close position-absolute end-0 me-3">
+                    <i class="material-icons-outlined fs-6">close</i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div>
+              <a class="dropdown-item border-bottom py-2" href="javascript:;">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="">
+                    <img src="assets/images/apps/14.png" class="rounded-circle" width="45" height="45" alt="">
+                  </div>
+                  <div class="">
+                    <h5 class="notify-title">New Order Recived</h5>
+                    <p class="mb-0 notify-desc">Recived new order from michle</p>
+                    <p class="mb-0 notify-time">2:15 AM</p>
+                  </div>
+                  <div class="notify-close position-absolute end-0 me-3">
+                    <i class="material-icons-outlined fs-6">close</i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div>
+              <a class="dropdown-item border-bottom py-2" href="javascript:;">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="">
+                    <img src="https://picsum.photos/32/32" class="rounded-circle" width="45" height="45" alt="">
+                  </div>
+                  <div class="">
+                    <h5 class="notify-title">Congratulations Jhon</h5>
+                    <p class="mb-0 notify-desc">Many congtars jhon. You have won the gifts.</p>
+                    <p class="mb-0 notify-time">Today</p>
+                  </div>
+                  <div class="notify-close position-absolute end-0 me-3">
+                    <i class="material-icons-outlined fs-6">close</i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div>
+              <a class="dropdown-item py-2" href="javascript:;">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="user-wrapper bg-danger text-danger bg-opacity-10">
+                    <span>PK</span>
+                  </div>
+                  <div class="">
+                    <h5 class="notify-title">New Account Created</h5>
+                    <p class="mb-0 notify-desc">From USA an user has registered.</p>
+                    <p class="mb-0 notify-time">Yesterday</p>
+                  </div>
+                  <div class="notify-close position-absolute end-0 me-3">
+                    <i class="material-icons-outlined fs-6">close</i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link position-relative" [routerLink]="['chat']"><i class="material-icons-outlined">chat</i>
+          <!-- <span class="badge-notify bg-dark">8</span> -->
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+          <img [src]="profileService.getCurrentUserPicture()" class="rounded-circle p-1 border" width="45" height="45">
+        </a>
+        <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
+          <a class="dropdown-item  gap-2 py-2" href="javascript:;">
+            <div class="text-center">
+              <img [src]="profileService.getCurrentUserPicture()" class="rounded-circle p-1 shadow mb-3" width="90"
+                height="90" alt="">
+              <h5 class="user-name mb-0 fw-bold">{{getFullname() | titlecase}}</h5>
+            </div>
+          </a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"
+            (click)="redirectToProfile()"><i class="material-icons-outlined">person_outline</i>Profile</a>
+          <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"
+            (click)="redirectToSettings()"><i class="material-icons-outlined">settings</i>Paramètres</a>
+          <a class="dropdown-item d-flex align-items-center gap-2 py-2" [routerLink]="['dashboard']" *ngIf="isAdmin()">
+            <i class="material-icons-outlined">dashboard</i>Dashboard
+          </a>
+          <!-- <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;">
+            <i class="material-icons-outlined">account_balance</i>Earning</a>
+          <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;">
+            <i class="material-icons-outlined">cloud_download</i>Downloads</a> -->
+          <hr class="dropdown-divider">
+          <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;" (click)="doLogout()"><i
+              class="material-icons-outlined">power_settings_new</i>Logout</a>
+        </div>
+      </li>
+    </ul>
+    <p-toast class="d-block"></p-toast>
+
+  </nav>
+</header>
+<app-dynamic-component-loader *ngIf="activeModal" [componentType]="activeModal" (close)="closeModal()"
+  (submit)="submitPost()"></app-dynamic-component-loader>
+
+
+
+<script>
+  new PerfectScrollbar(".search-content")
+  $(".search-control").click(function () {
+    $(".search-popup").addClass("d-block");
+    $(".search-close").addClass("d-block");
+  });
+
+
+  $(".search-close").click(function () {
+    $(".search-popup").removeClass("d-block");
+    $(".search-close").removeClass("d-block");
+  });
+
+
+  $(".mobile-search-btn").click(function () {
+    $(".search-popup").addClass("d-block");
+  });
+
+
+  $(".mobile-search-close").click(function () {
+    $(".search-popup").removeClass("d-block");
+  });
+</script>
+<!--end top header-->

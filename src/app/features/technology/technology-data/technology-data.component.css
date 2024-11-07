@@ -1,0 +1,6 @@
+span.badge {
+  font-size: 1rem !important;
+  padding: 10px !important;
+  margin-left: 5px;
+  cursor: pointer;
+}

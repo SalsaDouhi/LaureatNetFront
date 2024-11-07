@@ -1,0 +1,18 @@
+<div *ngIf="isLoginRoute">
+  <router-outlet></router-outlet>
+</div>
+
+<app-navbar *ngIf="!isLoginRoute"></app-navbar>
+<app-sidebar *ngIf="!isLoginRoute"></app-sidebar>
+<app-spinner></app-spinner>
+
+<main class="main-wrapper" *ngIf="!isLoginRoute" #scrollContainer>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+  <footer></footer>
+</main>
+
+<script>
+  $(".data-attributes span").peity("donut")
+</script>

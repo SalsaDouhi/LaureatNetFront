@@ -1,0 +1,89 @@
+<div *ngIf="attachments && attachments.length > 0">
+  <div class="row mt-5 mb-5">
+    <ng-container *ngIf="attachments.length === 1">
+      <div class="col">
+        <img [src]="attachments[0]" alt="Attachment" class="img-fluid w-100">
+      </div>
+    </ng-container>
+    <ng-container *ngIf="attachments.length === 2">
+      <div class="col">
+        <img [src]="attachments[0]" alt="Attachment" class="img-fluid w-100">
+      </div>
+      <div class="col">
+        <img [src]="attachments[1]" alt="Attachment" class="img-fluid w-100">
+      </div>
+    </ng-container>
+    <ng-container *ngIf="attachments.length === 3">
+      <div class="row">
+        <div class="col w-50">
+          <div class="row h-100">
+            <div class="col h-100">
+              <img [src]="attachments[0]" alt="Attachment"
+                class="img-fluid w-100 h-100">
+            </div>
+          </div>
+        </div>
+        <div class="col w-50">
+          <div class="row h-50">
+            <div class="col h-100">
+              <img [src]="attachments[1]" alt="Attachment"
+                class="img-fluid w-100 h-100">
+            </div>
+          </div>
+          <div class="row h-50">
+            <div class="col h-100">
+              <img [src]="attachments[2]" alt="Attachment"
+                class="img-fluid w-100 h-100">
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="attachments.length > 3">
+      <app-overlay-carousel *ngIf="show" [attachments]="attachments"
+        (toggleCarouselEvent)="onToggleCarousel($event)"></app-overlay-carousel>
+      <div class="row">
+        <!-- First column with auto width -->
+        <div class="col-8">
+          <div class="row h-100">
+            <div class="col h-100">
+              <img [src]="attachments[0]" alt="Attachment"
+                class="img-fluid w-100 h-100">
+            </div>
+          </div>
+        </div>
+        <!-- Second column with remaining width -->
+        <div class="col-4 ">
+          <div class="row h-33 mb-1">
+            <div class="col h-100">
+              <img [src]="attachments[1]" alt="Attachment"
+                class="img-fluid w-100 h-auto">
+            </div>
+          </div>
+          <div class="row h-33 mt-1 mb-1">
+            <div class="col h-100">
+              <img [src]="attachments[2]" alt="Attachment"
+                class="img-fluid w-100 h-auto">
+            </div>
+          </div>
+          <div class="row h-33">
+            <div class="col h-100">
+              <a href="JavaScript:;" (click)="toggleShow()" style="position: relative; display: inline-block;">
+                <img [src]="attachments[3]" alt="Attachment"
+                  class="img-fluid w-100 h-auto">
+                <ng-container *ngIf="attachments.length > 4">
+                  <div
+                    class="bg-light opacity-50 position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
+                    <span class="fs-3">+{{attachments.length-4}}</span>
+                  </div>
+                </ng-container>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </div>
+</div>

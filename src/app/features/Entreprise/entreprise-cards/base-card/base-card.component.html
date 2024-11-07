@@ -1,0 +1,35 @@
+<div class="col-xl-10 mb-5">
+  <div class="card mb-0">
+    <div class="card-body">
+      <div class="text-center">
+        <img [src]="getLogo()" width="100" height="100" class="rounded-circle raised bg-white" alt="">
+      </div>
+      <div class="text-center mt-4">
+        <h5 class="mb-2">{{ entreprise?.title }}</h5>
+        <p class="mb-0">Téléphone: {{ entreprise?.tel }}</p>
+        <p class="mb-0">Email: {{ entreprise?.email }}</p>
+        <p class="mb-0">Site web:
+          <a [href]="'https://' + entreprise?.website" target="_blank">{{ entreprise?.website }}</a>
+        </p>
+      </div>
+      <div class="d-flex align-items-center justify-content-around mt-5">
+        <div class="d-flex flex-column gap-2">
+          <h5 class="mb-0">8</h5>
+          <p class="mb-0">Posts</p>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <h5 class="mb-0">48</h5>
+          <p class="mb-0">JobOffers</p>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <h5 class="mb-0">24</h5>
+          <p class="mb-0">InterOffers</p>
+        </div>
+      </div>
+      <hr>
+      <div class="d-flex align-items-center justify-content-center gap-3">
+        <button class="btn btn-primary" [routerLink]="['/entreprise/details', entreprise?.id]">Détails</button>
+      </div>
+    </div>
+  </div>
+</div>

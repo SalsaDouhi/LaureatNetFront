@@ -1,0 +1,41 @@
+<div class="main-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Blocage</div>
+        <p class="mb-0">Vous bloquez actuellement {{ blocks.length }} personne</p>
+    </div>
+
+    <div class="card mt-4" *ngIf="blocks.length > 0; else noConnectionsFound">
+        <div class="card-body">
+            <div class="product-table">
+                <div class="table-responsive white-space-nowrap">
+                    <table class="table align-middle">
+                        <tbody>
+                            <tr *ngFor="let block of blocks">
+                                <td>
+                                    <div class="d-flex align-items-center gap-4">
+                                        <div class="product-info">
+                                            <i class="bi bi-ban"></i>
+                                            <a href="javascript:;" class="product-title ms-3">{{block.fullname}}</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end">
+                                    <div class="btn-group">
+                                        <div class="btn-group me-2">
+                                            <button class="btn btn-filter px-4" (click)="unblock(block.id)">Débloquer</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noConnectionsFound>
+        <div class="alert alert-success mt-4">Aucun bloc trouvé.</div>
+    </ng-template>
+</div>
+<p-toast></p-toast>

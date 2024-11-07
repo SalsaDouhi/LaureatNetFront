@@ -1,0 +1,255 @@
+<div class="row">
+  <div class="col-12 col-lg-8 col-xl-9">
+    <div class="card overflow-hidden">
+      <div class="card-body">
+        <div class="position-relative ">
+          <img [src]="getBanner()" class="img-fluid rounded banner" alt="" style="object-fit: fill;">
+          <div class="position-absolute top-100 start-50 translate-middle">
+            <img [src]="getPicture()" width="130" height="130" class="rounded-circle raised p-1 bg-white" alt="">
+          </div>
+        </div>
+        <div class="mt-5 d-flex align-items-start justify-content-between">
+          <div style="flex-grow: 1; min-width: 0;">
+            <!-- Name and position -->
+            <h3 class="mb-2">{{(profile.userProfile.firstName + " " + profile.userProfile.lastName) | titlecase}}</h3>
+            <p class="mb-1" *ngIf="profile.userProfile.graduated != null">{{profile.userProfile.currentPosition}}</p>
+            <p *ngIf="profile.userProfile.location"><i
+                class="bi bi-geo-alt-fill me-2"></i>{{profile.userProfile.location}}</p>
+            <p>
+              <a routerLink="/connection/list/{{profile.userId}}" class="link-underline-dark">
+                {{getAcceptedConnections()}} Connexions
+              </a>
+              <a routerLink="/subscription/list/{{profile.userId}}" class="link-underline-dark ms-3 ">
+                {{getSubscriptions()}} Abonnées
+              </a>
+            </p>
+            <!-- Badges -->
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <span class="badge rounded-pill bg-primary"
+                *ngIf="profile.userProfile.graduated != null">{{profile.userProfile.major}}</span>
+              <span class="badge rounded-pill bg-primary"
+                *ngIf="profile.userProfile.graduated == null && profile.userProfile.major">{{profile.userProfile.major +
+                '' +
+                profile.userProfile.currentGrade}}</span>
+              <span class="badge rounded-pill bg-primary" *ngIf="profile.userProfile.graduated != null">
+                {{'Promotion de ' + profile.userProfile.graduated}}</span>
+            </div>
+          </div>
+
+          <div *ngIf="!profile.isOwner">
+            <div class="d-flex align-items-center justify-content-end">
+              <app-connection-btn *ngIf="connected == 'noConnection'" [receiverId]="profile.userId"
+                (connectionRequestSent)="sendConnectionRequest()">
+              </app-connection-btn>
+              <app-pending-btn *ngIf="connected == 'pending'" [connectionId]="connectionId"
+                (connectionRequestDeleted)="removeConnection()">
+              </app-pending-btn>
+              <button class="btn btn-primary primary-blue-color primary-blue-border"
+                style="border-radius: 20px; background-color: transparent;" [routerLink]="['/chat']">
+                <i class="bi bi-send-fill me-1"></i>
+                Message
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="dropdown">
+              <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle" data-bs-toggle="dropdown">
+                <span class="material-icons-outlined fs-5">more_vert</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngIf="!profile.isOwner">
+                  <div class="dropdown-item" *ngIf="subscribed !== 'subscribed'">
+                    <app-subscription-btn [subscribedToId]="profile.userId"
+                      (subscriptionRequestSent)="subscribe()"></app-subscription-btn>
+                  </div>
+                  <div class="dropdown-item" *ngIf="subscribed !== 'noSubscription'">
+                    <app-unsubscription-btn [subscriptionId]="subscriptionId"
+                      (deleteSubscription)="subscribe()"></app-unsubscription-btn>
+                  </div>
+                </li>
+                <li *ngIf="!profile.isOwner">
+                  <div class="dropdown-item">
+                    <app-block-btn [blockedUserId]="profile.userId" [blockerUserId]="currentUserId"
+                      (connectionRequestDeleted)="blockUser()"></app-block-btn>
+                  </div>
+                </li>
+                <li *ngIf="connected !== 'noConnection' && connected !== 'pending' && !profile.isOwner">
+                  <div class="dropdown-item">
+                    <div (click)="removeConnection()">
+                      <i class="bi bi-person-x"></i>
+                      Supprimer la connexion
+                    </div>
+                  </div>
+                </li>
+                <li *ngIf="!profile.isOwner">
+                  <div class="dropdown-item">
+                    <app-report-btn [reportedId]="profile.userId"></app-report-btn>
+                  </div>
+                <li>
+                  <a class="dropdown-item" *ngIf="profile.isOwner" (click)="openSectionsModal()">
+                    Modifier mes compétences
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" *ngIf="profile.isOwner" [routerLink]="['/settings']">Paramètres de
+                    profile</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Dropdown menu -->
+
+    </div>
+    <!-- BIO -->
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="">
+            <h4 class="mb-2">À propos de moi</h4>
+          </div>
+          <div class="dropdown">
+            <a class="dropdown-toggle-nocaret options dropdown-toggle" *ngIf="profile.isOwner"
+              data-bs-toggle="dropdown">
+              <span class="material-icons-outlined fs-5">more_vert</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="toggleBioEdit(true)">Changer mon bio</a></li>
+              <!-- <li><a class="dropdown-item" [routerLink]="['/settings']" (click)="toggleBioEdit(true)">Changer mon bio</a></li> -->
+              <!-- <li><a class="dropdown-item" href="javascript:;">Another action</a></li> -->
+              <!-- <li><a class="dropdown-item" href="javascript:;">Something else here</a></li> -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- no bio and not profile owner -->
+        <p *ngIf="!profile.userProfile.bio && !profile.isOwner">
+          Pas de bio...
+        </p>
+
+        <!-- no bio and profile owner -->
+        <!-- <p *ngIf="profile.isOwner && !profile.userProfile.bio && !showBioEdit" class="text-center">
+          <button class="btn btn-outline-primary" (click)="toggleBioEdit(true)">
+            Ajouter une bio
+          </button>
+        </p> -->
+        <p *ngIf="profile.isOwner && !profile.userProfile.bio && !showBioEdit" class="text-center">
+          Complétez votre profil avec quelques détails personnels. <a *ngIf="profile.isOwner"
+            (click)="toggleBioEdit(true)" role="button" style="color: #007bff; cursor: pointer;">Cliquez ici</a>
+          pour commencer.
+        </p>
+
+        <!-- profile bio edit -->
+        <div *ngIf="profile.isOwner && showBioEdit" class="bio-edit-container">
+          <textarea #myBio id="bioArea" [(ngModel)]="myBioContent" placeholder="Présentez vous!"
+            class="bio-textarea"></textarea>
+          <div class="button-container">
+            <button class="btn btn-danger" (click)="toggleBioEdit(false)">
+              Annuler
+            </button>
+            <button class="btn btn-success" (click)="saveBio(myBio)">
+              Enregistrer
+            </button>
+          </div>
+        </div>
+
+        <p *ngIf="!showBioEdit">{{profile.userProfile.bio}}</p>
+      </div>
+    </div>
+    <!-- MES POSTES -->
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="">
+            <h4 class="mb-2">Mes postes</h4>
+          </div>
+          <div class="dropdown">
+            <a class="dropdown-toggle-nocaret options dropdown-toggle" *ngIf="profile.isOwner"
+              data-bs-toggle="dropdown">
+              <span class="material-icons-outlined fs-5">more_vert</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/post', 'create']">Ajouter un poste</a></li>
+              <!-- <li><a class="dropdown-item" href="javascript:;">Another action</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- no poste and not profile owner -->
+        <p *ngIf="!profile.isOwner && profile.posts?.length == 0">
+          Pas de postes...
+        </p>
+
+        <p *ngIf="profile.isOwner && profile.posts?.length == 0" class="text-center">
+          Vous n'avez encore publié aucun contenu. <a *ngIf="profile.isOwner" [routerLink]="['/post', 'create']"
+            role="button" style="color: #007bff; cursor: pointer;">Cliquez ici</a> pour créer votre premier post !
+        </p>
+      </div>
+    </div>
+
+    <div class="card bg-transparent border-0 mt-0">
+      <div class="card-body border-0 ">
+        <app-post-list [posts]="profile.posts" *ngIf="profile.posts?.length != 0" [mode]="'profile'"></app-post-list>
+      </div>
+    </div>
+    <!-- MES COMMENTAIRES -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mb-2">Mes commentaires</h4>
+        <p *ngIf="profile.comments && profile.comments?.length === 0">
+          Pas de commentaires...
+        </p>
+        <div class="customer-notes mb-3 ps ps--active-y" *ngIf="profile.comments && profile.comments.length > 0">
+          <div class="mx-3 my-0 rounded-3 p-3">
+            <app-comment-line *ngFor="let comment of profile.comments" [comment]="comment"></app-comment-line>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-4 col-xl-3">
+    <!-- ! links -->
+    <div class="card" *ngIf="anyLink()">
+      <div class="card-body">
+        <h5 class="mb-3">Mes réseau sociaux</h5>
+        <p *ngIf="profile.userProfile.website">
+          <a href="javascript:;" (click)="redirectTo(profile.userProfile.website)">
+            <i class="bi bi-browser-edge me-2"></i>{{profile.userProfile.website}}
+          </a>
+        </p>
+        <p *ngIf="profile.userProfile.facebook"><a href="javascript:;"
+            (click)="redirectTo(profile.userProfile.facebook)"><i class="bi bi-facebook me-2"></i>Facebook</a></p>
+        <p *ngIf="profile.userProfile.instagram"><a href="javascript:;"
+            (click)="redirectTo(profile.userProfile.instagram)"><i class="bi bi-instagram me-2"></i>Instagram</a></p>
+        <p *ngIf="profile.userProfile.twitter"><a href="javascript:;"
+            (click)="redirectTo(profile.userProfile.twitter)"><i class="bi bi-twitter me-2"></i>Twitter</a></p>
+        <p *ngIf="profile.userProfile.youtube"><a href="javascript:;"
+            (click)="redirectTo(profile.userProfile.youtube)"><i class="bi bi-youtube me-2"></i>Youtube</a></p>
+        <p *ngIf="profile.userProfile.linkedin"><a href="javascript:;"
+            (click)="redirectTo(profile.userProfile.linkedin)"><i class="bi bi-linkedin me-2"></i>LinkedIn</a></p>
+      </div>
+    </div>
+
+    <!-- ! sections -->
+    <div class="card" *ngFor="let section of profile.sections">
+      <div class="card-body" *ngIf="section.items.length > 0">
+        <h5 class="card-title mb-3">{{ section.title }}</h5>
+        <ul class="list-unstyled">
+          <li *ngFor="let item of section.items" class="mb-3">
+            <strong>{{ item.title }}</strong>
+            <div>
+              <small class="text-muted">{{ item.startDate | date:'MMM yyyy' }} - {{ item.endDate ? (item.endDate |
+                date:'MMM yyyy') : 'Présent' }}</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <p-toast></p-toast>

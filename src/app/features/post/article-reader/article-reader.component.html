@@ -1,0 +1,4 @@
+<div class="card border p-4 pt-1">
+    <a [href]="pdfUrl">Voir le PDF complet ici..</a>
+    <object *ngIf="safePdfData" [data]="safePdfData" type="application/pdf" style="height:500px;"></object>
+</div>

@@ -1,0 +1,27 @@
+.mm-active .parent-icon,
+.mm-active .menu-title {
+  color: #008cff;
+}
+
+a {
+  cursor: pointer;
+}
+
+.sidebar-wrapper .sidebar-header .logo-img {
+  width: 48px;
+}
+
+.sidebar-wrapper .sidebar-header,
+.sidebar-wrapper .sidebar-nav,
+.sidebar-wrapper .sidebar-bottom {
+  background-color: var(--bs-body-bg) !important;
+  border-right: 1px solid var(--bs-border-color);
+}
+
+.sidebar-wrapper .sidebar-bottom {
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.sidebar-wrapper .sidebar-bottom .footer-icon {
+  color: #dee2e6;
+}

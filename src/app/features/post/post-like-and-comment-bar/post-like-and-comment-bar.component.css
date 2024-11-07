@@ -1,0 +1,61 @@
+.no-scroll{
+  overflow-y: hidden;
+}
+
+.btn-like-active {
+    background-color: var(--bs-danger);
+    color: var(--bs-light);
+    animation: like-animation 0.6s forwards;
+}
+
+
+@keyframes like-animation {
+	0% {
+		transform: translateY(-150%);
+		color: var(--bs-body-color);
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+		box-shadow: none;
+	}
+	45%{
+		transform: translateY(0);
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+		box-shadow: none;
+	}
+  	50%{
+	  	color: var(--bs-body-color);
+	  	transform: translateY(0);
+		background-color: var(--bs-danger);
+		border: none;
+		box-shadow: none;
+	}
+	60%{
+        box-shadow: 0 0 5px var(--bs-danger), 0 0 10px var(--bs-danger), 0 0 20px var(--bs-danger);
+    }
+    75% {
+        box-shadow: 0 0 10px var(--bs-danger), 0 0 20px var(--bs-danger), 0 0 30px var(--bs-danger);
+    }
+	99% {
+	  	color: var(--bs-light);
+	}
+  	100%{
+	  	color: var(--bs-light);
+  	}
+
+}
+
+.btn-inactive {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.btn-inactive:hover {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg);
+}
+
+
+
+
+

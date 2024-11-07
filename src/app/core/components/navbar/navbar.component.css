@@ -1,0 +1,8 @@
+.circle {
+    width: 5px; /* Adjust the size as needed */
+    height: 5px; /* Adjust the size as needed */
+    background-color: #6c757d;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  

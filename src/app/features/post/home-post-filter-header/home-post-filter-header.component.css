@@ -1,0 +1,47 @@
+button{
+    padding: 5;
+    width: 25%;
+}
+.container {
+  display: grid;
+  place-items: center;
+  height: 8em;
+}
+ 
+.btn-inactive-dark {
+    color: var(--bs-light);
+    border-color: var(--bs-light);
+    transition: background-color 0.25s; /* Faster hover effect */
+  }
+  
+  .btn-inactive-dark:hover {
+    background-color: rgb(66, 67, 68);
+  }
+  
+  .btn-active-dark {
+    background-color: var(--bs-light);
+    color: var(--bs-dark);
+    transition: background-color 0.1s, color 0.1s; /* Smooth transition for active/inactive state */
+    box-shadow: inset 0 -2px var(--bs-info);
+    border: 0;
+  }
+  
+  /* Light Theme Styles */
+  .btn-inactive-light {
+    color: var(--bs-dark);
+    border-color: var(--bs-dark);
+    transition: background-color 0.25s; /* Faster hover effect */
+  }
+  
+  .btn-inactive-light:hover {
+    background-color: rgb(200, 200, 200);
+  }
+  
+  .btn-active-light {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+    transition: background-color 0.1s, color 0.1s; /* Smooth transition for active/inactive state */
+    box-shadow: inset 0 -2px var(--bs-info);
+    border: 0;
+  }
+  

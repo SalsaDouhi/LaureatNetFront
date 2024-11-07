@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title">Titre</label>
+      <input type="text" formControlName="title" class="form-control" placeholder="Article Title">
+    </div>
+    <div class="mb-3">
+      <label for="datePublished">Date De Publication</label>
+      <input type="date" formControlName="datePublished" class="form-control" placeholder="Date Published">
+    </div>
+    <div class="mb-3">
+      <label for="listOfAuthors">Liste des Auteurs</label>
+      <input type="text" formControlName="listOfAuthors" class="form-control" placeholder="List of Authors">
+    </div>
+    <div class="mb-3">
+      <label for="technologyList">Les Technologies</label>
+      <app-post-technology-tags [technologies]="technologies"></app-post-technology-tags>
+    </div>
+    <app-file-upload></app-file-upload>
+
+</form>
+  

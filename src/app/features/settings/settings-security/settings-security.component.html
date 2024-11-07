@@ -1,0 +1,28 @@
+<form [formGroup]="passwordForm">
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <label class="form-label">Ancien mot de passe</label>
+      <input type="password" class="form-control" formControlName="oldPassword">
+    </div>
+    <div class="col-12 col-lg-6"></div>
+    <div class="col-12 col-lg-6">
+      <label class="form-label">Nouveau mot de passe</label>
+      <input type="password" class="form-control" formControlName="newPassword">
+    </div>
+    <div class="col-12 col-lg-6"></div>
+    <div class="col-12 col-lg-6">
+      <label class="form-label">Confirmation</label>
+      <input type="password" class="form-control" formControlName="confirmNewPassword">
+    </div>
+    <div *ngIf="confirmPasswordInvalid" class="text-danger">
+      Le nouveau mot de passe et la confirmation du mot de passe ne correspondent pas
+    </div>
+    <div class="col-12">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-primary px-4" (click)="submit()">
+          Sauvegarder
+        </button>
+      </div>
+    </div>
+  </div>
+</form><p-toast></p-toast>

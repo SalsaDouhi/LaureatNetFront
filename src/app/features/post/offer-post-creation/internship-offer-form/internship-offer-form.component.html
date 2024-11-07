@@ -1,0 +1,28 @@
+<form [formGroup]="internshipOfferForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="companyName">Nom De L'Entreprise</label>
+        <select class="form-control" formControlName="entrepriseId" id="companyName" required>
+            <option *ngFor="let entreprise of entreprises" [value]="entreprise.id">{{ entreprise.title }}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="technologyList">Les Technologies</label>
+        <app-post-technology-tags [technologies]="technologies"></app-post-technology-tags>
+    </div>
+    <div class="mb-3">
+        <label for="startDate">Date Debut De Postulation</label>
+        <input type="date" class="form-control" formControlName="startDate" id="startDate" required>
+    </div>
+    <div class="mb-3">
+        <label for="endDate">Date Limite De Postulation</label>
+        <input type="date" class="form-control" formControlName="endDate" id="endDate" required>
+    </div>
+    <div class="mb-3">
+        <label for="roleTitle">Titre De Role</label>
+        <input type="text" class="form-control" formControlName="roleTitle" id="roleTitle" required>
+    </div>
+    <div class="mb-3">
+        <label for="duration">Durre De Stage</label>
+        <input type="text" class="form-control" formControlName="duration" id="duration" required>
+    </div>
+</form>

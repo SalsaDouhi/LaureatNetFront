@@ -1,0 +1,35 @@
+<div class="main-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">{{ reports.length }} Signales</div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="card mt-4" *ngIf="reports.length > 0; else noReportsFound">
+        <div class="card-body">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Dénonciateur</th>
+                        <th scope="col">Personne signalée</th>
+                        <th scope="col" class="wide-column">Raison</th>
+                        <th scope="col">Heure</th>
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let report of reports">
+                        <th scope="row">{{report.id}}</th>
+                        <td>{{report.reporterFullName}}</td>
+                        <td>{{report.reportedFullName}}</td>
+                        <td style="width: 35%;">{{report.title}}</td>
+                        <td>{{ report.createdAt | slice:0:10 }}</td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <ng-template #noReportsFound>
+        <div class="alert alert-warning mt-4">Aucun signale trouvée.</div>
+    </ng-template>
+</div>

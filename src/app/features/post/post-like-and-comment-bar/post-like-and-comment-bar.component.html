@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center gap-3">
+    <button (click)="this.likeToggleEvent.emit(!this.liked)" 
+    [ngClass]="liked ? 'btn-like-active' : 'btn-inactive'" 
+    class="btn flex-fill justify-content-center">
+        <div class="like-content">
+            <i class="material-icons-outlined align-middle" *ngIf="!liked">favorite_border</i>
+            <i class="material-icons-outlined align-middle" *ngIf="liked">favorite</i>
+            <span> Like</span>
+        </div>
+    </button>
+    <button (click)="toggleModal()" class="btn btn-inactive flex-fill justify-content-center">
+      	<i class="material-icons-outlined align-middle">textsms</i>
+      	<span> Commenter</span>
+    </button>
+</div>
+<!--   Comments Modal   -->
+<app-comments-modal *ngIf="showModal" [postId]="postId" (update)="ToggleModalEvent.emit()" (closeModal)="toggleModal()"></app-comments-modal>

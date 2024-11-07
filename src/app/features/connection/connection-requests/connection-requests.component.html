@@ -1,0 +1,78 @@
+<div class="main-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Gérer les invitations</div>
+        <!-- Add buttons for switching between received and sent invitations -->
+    </div>
+
+    <ul class="nav nav-tabs custom-nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="currentView === 'received'" (click)="switchToReceived()">
+                <div class="d-flex align-items-center">
+                    <div class="tab-title">Reçues</div>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="currentView === 'sent'" (click)="switchToSent()">
+                <div class="d-flex align-items-center">
+                    <div class="tab-title">Envoyées</div>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="card mt-4" *ngIf="isLoading; else content">
+        <div class="card-body">
+            <!-- Loading indicator -->
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #content>
+        <div class="card mt-4" *ngIf="!noInvitationsFoundError; else noInvitationsFound">
+            <div class="card-body">
+                <div class="product-table">
+                    <div class="table-responsive white-space-nowrap">
+                        <table class="table align-middle">
+                            <tbody>
+                                <tr *ngFor="let connection of filteredConnections">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-4">
+                                            <img [src]="getProfilePicture(connection.picture)" class="rounded-circle p-1 border" width="80" height="80" alt="...">
+                                            <div class="product-info">
+                                                <a href="javascript:;" class="product-title">{{ connection.fullname }}</a>
+                                                <p class="mb-0 product-category">{{ connection.bio }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="btn-group">
+                                            <div class="btn-group me-2" *ngIf="currentView === 'received'">
+                                                <button class="btn btn-filter px-4" (click)="deleteConnection(connection.id)">Ignorer</button>
+                                                <button class="btn ripple btn-primary px-4" (click)="acceptConnection(connection.id)">Accepter</button>
+                                            </div>
+                                            <div class="btn-group" *ngIf="currentView === 'sent'">
+                                                <button class="btn btn-filter px-4" (click)="openConfirmationDialog(connection.id)">Retirer</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noInvitationsFound>
+            <div class="alert alert-warning mt-4">
+                Aucune invitation trouvée.
+            </div>
+        </ng-template>
+    </ng-template>
+</div>
+
+<p-toast></p-toast>

@@ -1,0 +1,57 @@
+<div class="card w-100">
+
+  <div class="card-body">
+
+
+    <div class="position-relative ">
+      <img [src]="'https://picsum.photos/1900/300'" class="img-fluid rounded banner" alt="" style="object-fit: fill;">
+      <div class="position-absolute top-100 start-50 translate-middle">
+        <img [src]="getLogo()" width="130" height="130" class="rounded-circle raised p-1 bg-white" alt="">
+      </div>
+    </div>
+    <div class="text-center mt-5 pt-4">
+
+      <h4 class="mb-1">{{ entreprise.title }}</h4>
+    </div>
+    <div class="d-flex align-items-center justify-content-center gap-3 my-5">
+      <!-- Add your social media links or icons here -->
+    </div>
+    <div class="d-flex align-items-center justify-content-around">
+      <div class="d-flex flex-column gap-2">
+        <!-- Use appropriate properties of entreprise object here -->
+        <h4 class="mb-0">5</h4>
+        <p class="mb-0">Posts</p>
+      </div>
+      <div class="d-flex flex-column gap-2">
+        <h4 class="mb-0">48</h4>
+        <p class="mb-0"> Job Offers </p>
+      </div>
+      <div class="d-flex flex-column gap-2">
+        <h4 class="mb-0">24</h4>
+        <p class="mb-0">Intership Offers</p>
+      </div>
+    </div>
+
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <b>Phone</b>
+      <br>
+      {{ entreprise.tel }}
+    </li>
+    <li class="list-group-item border-top">
+      <b>Address</b>
+      <br>
+      {{ entreprise.email }}
+    </li>
+    <!-- <li class="list-group-item">
+        <b>Email</b>
+        <br>
+        {{ entreprise.email }}
+      </li> -->
+  </ul>
+
+</div>
+<app-map-location [initialLatitude]="x" [initialLongitude]="y" [lock]="true">
+</app-map-location>

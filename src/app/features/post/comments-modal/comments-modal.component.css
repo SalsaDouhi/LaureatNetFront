@@ -1,0 +1,13 @@
+.fade {
+    transition: opacity .15s linear;
+}
+.no-comments {
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;    /* Vertically center the content */
+    height: 100%;           /* Adjust this as necessary to fill the parent container */
+    text-align: center;     /* Center the text within the paragraph */
+}
+.modal{
+    z-index: 800;
+}

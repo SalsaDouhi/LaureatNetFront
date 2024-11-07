@@ -1,0 +1,20 @@
+<!-- <div class="btn-group">
+    <button type="button" class="btn rounded-circle" data-bs-toggle="dropdown" aria-expanded="false"> <span class="material-icons-outlined fs-5">...</span>
+    </button>
+    <div class= "dropdown-menu" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 40px);" data-popper-placement="bottom-end"> <a class="dropdown-item" href="javascript:;">Action</a>
+        <a *ngIf="posterId===userId" class="dropdown-item" (click)="deletePostEvent.emit()" href="javascript:;">Delete This Post</a>
+
+    </div>
+</div> -->
+
+<div class="dropdown" *ngIf="posterId===userId">
+    <button class="btn force-round btn-filter dropdown-toggle dropdown-toggle-nocaret" type="button"
+        data-bs-toggle="dropdown">
+        <i class="bi bi-three-dots"></i>
+    </button>
+    <ul class="dropdown-menu">
+        <li *ngIf="posterId===userId" (click)="deletePostEvent.emit()">
+            <button class="dropdown-item">Supprimer Ce poste</button>
+        </li>
+    </ul>
+</div>

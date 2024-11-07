@@ -1,0 +1,14 @@
+<div class="card-header">
+    <div class="mt-3">
+        <div class="d-flex gap-2">
+            <span class="material-symbols-outlined">article</span>
+            <h5> découvrez ce nouvel article !</h5>
+        </div>
+    </div>
+    <div class="mt-2">
+        <h6>{{ title }}</h6>
+        <p *ngIf="datePublished" class="text-muted mb-1">Date publiée: {{ datePublished}}</p>
+        <p *ngIf="authors" class="mb-1">Auteurs: {{ authors }}</p>
+        <p *ngIf="publisherName" class="mb-1">Nom D'Editeur: {{ publisherName }}</p>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<form [formGroup]="networkingForm">
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <label for="website" class="form-label">Website:</label>
+      <input type="text" class="form-control" id="website" formControlName="website">
+    </div>
+    <div class="col-12 col-lg-6">
+      <label for="facebook" class="form-label">Facebook:</label>
+      <input type="text" class="form-control" id="facebook" formControlName="facebook">
+    </div>
+    <div class="col-12 col-lg-6">
+      <label for="instagram" class="form-label">Instagram:</label>
+      <input type="text" class="form-control" id="instagram" formControlName="instagram">
+    </div>
+    <div class="col-12 col-lg-6">
+      <label for="twitter" class="form-label">Twitter:</label>
+      <input type="text" class="form-control" id="twitter" formControlName="twitter">
+    </div>
+    <div class="col-12 col-lg-6">
+      <label for="youtube" class="form-label">YouTube:</label>
+      <input type="text" class="form-control" id="youtube" formControlName="youtube">
+    </div>
+    <div class="col-12 col-lg-6">
+      <label for="linkedin" class="form-label">LinkedIn:</label>
+      <input type="text" class="form-control" id="linkedin" formControlName="linkedin">
+    </div>
+    <div class="d-flex align-items-start gap-3">
+      <button class="btn btn-primary px-4" (click)="submit()">
+        Sauvegarder
+      </button>
+    </div>
+  </div>
+</form>

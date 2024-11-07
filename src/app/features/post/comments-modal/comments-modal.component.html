@@ -1,0 +1,30 @@
+
+<div class="modal d-block" id="exampleScrollableModal" tabindex="-1"  role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable mh-100">
+      	<div class="modal-content h-100">
+			<div class="modal-header flex-row">
+				<h5 class="modal-title">Commentaire</h5>
+				<button (click)="onClose()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="no-comments" *ngIf="comments.length===0">
+					<p class="">Soyez le premier à commenter !</p>
+				</div>
+				<div *ngFor="let comment of comments">
+					<app-comment-container 
+						[createdAt]="comment.createdAt"
+						[content]="comment.content"
+						[pic]="comment.userProfileImage"
+						[commentorFullName]="comment.userFullName"
+						[commentId]="comment.id"
+						[commentorId]="comment.userId"
+						(deletedCommentEvent)="onDeleteComment($event)">
+					</app-comment-container>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<app-comment-bar class="w-100" (commentEvent)="newComment($event)"></app-comment-bar>
+			</div>
+		</div>
+	</div>
+</div>

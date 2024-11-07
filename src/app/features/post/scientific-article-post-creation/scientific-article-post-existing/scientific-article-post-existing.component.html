@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="selectedArticleId">Selectionner Un Article Existant</label>
+      <select formControlName="articleId" class="form-control">
+        <option value="" disabled selected>Selectionner Un Article</option>
+        <!-- Populate options with existing articles -->
+        <option *ngFor="let article of articles" [value]="article.id">{{ article.title }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="technologyList">Les Technologies</label>
+      <app-post-technology-tags [technologies]="technologies"></app-post-technology-tags>
+    </div>
+</form>
+  

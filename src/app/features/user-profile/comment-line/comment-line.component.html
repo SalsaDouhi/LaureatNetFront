@@ -1,0 +1,7 @@
+<div class="notes-item">
+  <span style="font-weight: bold; color: #555;">Commenté sur un poste de </span><a
+    [routerLink]="['/profiles', comment.posterId]">{{ comment.posterFullName | titlecase }}</a>
+  <p class="mb-2">{{ comment.content }}</p>
+  <p class="mb-0 text-end fst-italic text-secondary">{{ comment.createdAt | dateFormat:'dd MMM, yyyy' }}</p>
+</div>
+<hr class="border-dotted">

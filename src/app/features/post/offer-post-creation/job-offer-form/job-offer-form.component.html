@@ -1,0 +1,24 @@
+<form [formGroup]="jobOfferForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="companyName">Nom De L'Entreprise</label>
+        <select class="form-control" formControlName="entrepriseId" id="companyName" required>
+            <option *ngFor="let entreprise of entreprises" [value]="entreprise.id">{{ entreprise.title }}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="technologyList">Les Technologies</label>
+        <app-post-technology-tags [technologies]="technologies"></app-post-technology-tags>
+    </div>
+    <div class="mb-3">
+        <label for="startDate">Date Debut De Postulation</label>
+        <input type="date" class="form-control" formControlName="startDate" id="startDate" required>
+    </div>
+    <div class="mb-3">
+        <label for="endDate">Date Fin De Postulation</label>
+        <input type="date" class="form-control" formControlName="endDate" id="endDate" required>
+    </div>
+    <div class="mb-3">
+        <label for="jobTitle">Titre De Poste</label>
+        <input type="text" class="form-control" formControlName="jobTitle" id="jobTitle" required>
+    </div>
+</form>

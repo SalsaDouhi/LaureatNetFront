@@ -1,0 +1,21 @@
+<div class="w-75 container">
+	<div class="d-flex container gap-3">
+		<button type="button" class="btn" 
+			[ngClass]="getButtonClass('all')" 
+			(click)="filterPosts('all')">Tout</button>
+		<button type="button" class="btn" 
+			[ngClass]="getButtonClass('InternshipOffer')" 
+			(click)="filterPosts('InternshipOffer')">Offre De Stage</button>
+		<button type="button" class="btn" 
+			[ngClass]="getButtonClass('JobOffer')"
+			(click)="filterPosts('JobOffer')">Offre D'Emploi</button>
+		<button type="button" class="btn" 
+			[ngClass]="getButtonClass('ScientificArticlePost')" 
+			(click)="filterPosts('ScientificArticlePost')">Article Scientifique</button>
+	</div>
+</div>
+  
+
+
+
+

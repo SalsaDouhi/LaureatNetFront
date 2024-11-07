@@ -1,0 +1,15 @@
+<div class="d-flex align-items-center gap-3 mb-3">
+    <div>
+        <img [src]="pic" class="rounded-circle p-1 border" width="60" height="60" alt="User Picture">
+    </div>
+    <div class="flex-grow-1">
+        <a class="mt-0 mb-0" [routerLink]="['/profiles/', userId]">{{ fullname | titlecase }}</a>
+        <!-- <a class="mb-0">{{ username }}</a> -->
+        <ng-container *ngIf="role">
+            <p class="mb-0">{{ role }}</p>
+        </ng-container>
+        <ng-container *ngIf="createdAt">
+            <p class="text-muted mb-0">Postée: {{ getCreatedAt() }}</p>
+        </ng-container>
+    </div>
+</div>
